@@ -34,7 +34,9 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 
 func handleSecret(w http.ResponseWriter, r *http.Request) {
 	user, password, _ := r.BasicAuth()
-	if user != "user" || password != "password" {
+	HerokuEnvUser := os.Getenv("USER")
+	HerokuEnvPassword := os.Getenv("PASSWORD")
+	if user != HerokuEnvUser || password != HerokuEnvPassword {
 		w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
 		http.Error(w, "認証に失敗しました", http.StatusUnauthorized)
 		return
