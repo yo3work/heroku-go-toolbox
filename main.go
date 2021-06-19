@@ -11,6 +11,7 @@ import (
 func handleHome(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.ParseFiles(
 		"template/index.gohtml",
+		"template/index02.gohtml",
 		"template/_about.gohtml",
 		"template/_copyright.gohtml",
 		"template/_footer.gohtml",
