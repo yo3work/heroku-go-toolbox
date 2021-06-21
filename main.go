@@ -219,7 +219,7 @@ func handleInputConfirm(w http.ResponseWriter, req *http.Request) {
 
 	// 現在時刻でディレクトリを作成
 	TimeNow := time.Now().Format("20060102150405")
-	DownloadDirectory := "download/" + TimeNow
+	DownloadDirectory := "tmp/download/" + TimeNow
 	if err := os.Mkdir(DownloadDirectory, 0777); err != nil {
 		fmt.Println(err)
 	}
@@ -228,7 +228,7 @@ func handleInputConfirm(w http.ResponseWriter, req *http.Request) {
 	EmojiURL := generateEmoji(EmojiText, DownloadDirectory)
 
 	// downloadディレクトリ内を確認
-	files, _ := os.ReadDir("./download")
+	files, _ := os.ReadDir("./tmp/download")
 	TimeNowYYYYMMDDHH := time.Now().Format("2006010215")
 
 	for _, f := range files {
@@ -240,7 +240,7 @@ func handleInputConfirm(w http.ResponseWriter, req *http.Request) {
 		// これだと日付かわる瞬間に前日分が全削除されちゃうから危険
 		if i <= j-2 {
 			fmt.Println(f.Name() + "は削除します")
-			if err := os.RemoveAll("download/" + f.Name()); err != nil {
+			if err := os.RemoveAll("tmp/download/" + f.Name()); err != nil {
 				fmt.Println(err)
 			}
 		}
@@ -284,7 +284,7 @@ func main() {
 		port = "8080"
 	}
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static/"))))
-	http.Handle("/download/", http.StripPrefix("/download/", http.FileServer(http.Dir("download/"))))
+	http.Handle("/tmp/", http.StripPrefix("/tmp/", http.FileServer(http.Dir("tmp/"))))
 	http.HandleFunc("/", handleHome)
 	http.HandleFunc("/input_confirm", handleInputConfirm)
 	http.HandleFunc("/secret", handleSecret)
