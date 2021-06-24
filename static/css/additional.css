@@ -1,0 +1,35 @@
+.btn-slack {
+    color: #fff;
+    background-color: #4A154B;
+    border-color: #4A154B;
+}
+
+
+.btn-slack-purple {
+    color: #eee;
+    background-color: #4A154B;
+}
+
+.btn-slack-purple:hover, .btn-slack-purple:focus, 
+.btn-slack-purple:active, .btn-slack-purple:active:focus, .btn-slack-purple:active:hover, .btn-slack-purple:active.focus,
+.btn-slack-purple.active, .btn-slack-purple.active:focus, .btn-slack-purple.active:hover, .btn-slack-purple.active.focus,
+.open > .dropdown-toggle.btn-slack-purple, 
+.open > .dropdown-toggle.btn-slack-purple:hover,
+.open > .dropdown-toggle.btn-slack-purple:focus, 
+.open > .dropdown-toggle.btn-slack-purple.focus,
+.btn-slack-purple.disabled:hover, .btn-slack-purple[disabled]:hover, fieldset[disabled] .btn-slack-purple:hover,
+.btn-slack-purple.disabled:focus, .btn-slack-purple[disabled]:focus, fieldset[disabled] .btn-slack-purple:focus,
+.btn-slack-purple.disabled.focus, .btn-slack-purple[disabled].focus, fieldset[disabled] .btn-slack-purple.focus {
+    color: #fff;
+    background-color: #644365;
+}
+
+.btn-slack-purple.outline {
+    border: 3px solid #4A154B;
+    color: #fff;
+}
+
+
+input, textarea {
+  font-size: 14px !important ;
+}

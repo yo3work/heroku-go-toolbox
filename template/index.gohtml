@@ -1,40 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="description" content="" />
-        <title>Travel Records</title>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../static/css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <h2>slackカスタム絵文字、一気に作成ツール</h2>
-        <form action="input_confirm" method="post">
-            <table>
-            <tr>
-                <td>テキスト入力</td>
-                <td><textarea name="emoji_text" rows="10" cols="40"></textarea></td>
-            </tr>
-            <!--
-            <tr>
-                <td>文字色を選んでください(この機能は未実装です)</td>
-                <td>
-                <input type="radio" name="emoji_text_color" value="random" checked> 7色ランダム
-                <input type="radio" name="emoji_text_color" value="FF0000">赤色
-                <input type="radio" name="emoji_text_color" value="FFDB00">黄色
-                <input type="radio" name="emoji_text_color" value="49FF00">黄緑色
-                <input type="radio" name="emoji_text_color" value="00FF92">緑色
-                <input type="radio" name="emoji_text_color" value="0092FF">水色
-                <input type="radio" name="emoji_text_color" value="4900FF">青色
-                <input type="radio" name="emoji_text_color" value="FF00DB">桃色
-                </td>
-            </tr>
-            -->
-            </table>
-            <input type="submit" value="カスタム絵文字を一気に作る！">
-        </form>
-    </body>
+<!-- saved from url=(0050)https://getbootstrap.jp/docs/4.3/examples/sign-in/ -->
+<html lang="ja">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>カスタム絵文字を一気に作れるサイト</title>
+    <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/css/additional.css">
+    <link href="./static/css/signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+  <form class="form-signin" action="result" method="post">
+    <img class="mb-1" src="./static/img/title_001.png" alt="" width="60" height="60">
+    <img class="mb-1" src="./static/img/title_002.png" alt="" width="60" height="60">
+    <img class="mb-1" src="./static/img/title_003.png" alt="" width="60" height="60">
+    <img class="mb-1" src="./static/img/title_004.png" alt="" width="60" height="60">
+    <p class="mt-1">
+      <small>↑こんな感じのpng画像を一気に作ることができます。</small>
+    </p>
+    <p class="mt-3 text-muted">
+      <button type="button" data-toggle="modal" data-backdrop="true" data-target="#modal-option" class="btn btn-xs btn-link">使い方(How To Use)</button>
+    </p>
+
+    <div class="mt-3 mb-3">
+      <textarea name="emoji_text" rows="10" cols="40" class="form-control" placeholder="絵文字にしたい文字列を1行ずつ入力してください！">諦めたら試合終了</textarea>
+    </div>
+    <button class="btn btn-lg btn-slack-purple btn-block" type="submit">カスタム絵文字をつくる</button>
+
+    <p class="mt-3 text-muted">
+      <small>&copy; <a href='https://github.com/yo3work'>yo3work</a></small>
+    </p>
+  </form>
+  <div class="modal fade" id="modal-option" tabindex="-1" role="dialog" aria-labelledby="myModalOptionLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalOptionLabel">使い方(How To Use)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body text-left">
+        <p class="text-muted">■絵文字にしたい文字列を1行ずつ入力してボタンをクリックしてください。6色の画像ファイルが一気に生成されます。</p>
+        <p class="text-muted">■ファイル名は「数字.png」となりますが<br>「よろしく,yoroshiku」とカンマで区切ると、後半の文字列をファイル名にすることができます。</p>
+        <p class="text-muted mt-5">【注意点】</p>
+        <p class="text-muted">■今のところ「全角文字」の「2,3,4,6,8文字」にしか対応してません…。</p>
+        <p class="text-muted">■文字色はリスペクトの意味も込めて「どこかで見たことある配色」にしてあります。</p>
+        <p class="text-muted">■herokuで運用しているため、herokuが再起動(1日1回)するタイミングで画像リンクが無効になることがあります。</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- オプション1：jQueryとBootstrapバンドル版（Popperを含む） -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  </body>
 </html>

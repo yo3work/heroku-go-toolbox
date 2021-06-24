@@ -1,9 +1,0 @@
-あか tmp/download/20210621170109/0.png
-あお tmp/download/20210621170109/1.png
-きいろ tmp/download/20210621170109/2.png
-あか tmp/download/20210621170109/0.png
-あお tmp/download/20210621170109/1.png
-きいろ tmp/download/20210621170109/2.png
-あか tmp/download/20210621170109/0.png
-あお tmp/download/20210621170109/1.png
-きいろ tmp/download/20210621170109/2.png
