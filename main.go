@@ -39,7 +39,7 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 	f := EmojiText
 	f = strings.Replace(f, "\r", "", -1)
 	f = strings.Replace(f, " ", "", -1)
-	f = strings.Replace(f, "　", "", -1)
+	//f = strings.Replace(f, "　", "", -1)
 	s := strings.Split(f, "\n")
 
 	cnt := 1
@@ -59,7 +59,9 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 			if strings.Contains(Message, ",") {
 				slice := strings.Split(Message, ",")
 				Message = slice[0]
-				OutputFileName = DownloadDirectory + "/" + slice[1] + strconv.Itoa(cnt) + ".png"
+				OutputFileName = DownloadDirectory + "/" + slice[1] + "_" + strconv.Itoa(cnt) + ".png"
+			} else {
+				OutputFileName = DownloadDirectory + "/" + Message + "_" + strconv.Itoa(cnt) + ".png"
 			}
 
 			// 画像サイズを決める
@@ -93,7 +95,12 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 			CharSize = 64
 			Row1Xvalue, Row1Yvalue, Row2Xvalue, Row2Yvalue := 0, 0, 0, 0
 			Row1Text, Row2Text := "", ""
-			if len([]rune(Message)) == 2 {
+			if len([]rune(Message)) == 1 {
+				CharSize = 100
+				Row1Xvalue = 15 * 64
+				Row1Yvalue = 100 * 64
+				Row1Text = Message
+			} else if len([]rune(Message)) == 2 {
 				CharSize = 64
 				Row1Xvalue = 0 * 64
 				Row1Yvalue = 85 * 64
@@ -111,6 +118,14 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 				Row2Yvalue = 120 * 64
 				Row1Text = Message[0:6]
 				Row2Text = Message[6:12]
+			} else if len([]rune(Message)) == 5 {
+				CharSize = 42
+				Row1Xvalue = 0 * 64
+				Row1Yvalue = 55 * 64
+				Row2Xvalue = 0 * 64
+				Row2Yvalue = 105 * 64
+				Row1Text = Message[0:9]
+				Row2Text = Message[9:15]
 			} else if len([]rune(Message)) == 6 {
 				CharSize = 42
 				Row1Xvalue = 0 * 64
@@ -119,6 +134,14 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 				Row2Yvalue = 105 * 64
 				Row1Text = Message[0:9]
 				Row2Text = Message[9:18]
+			} else if len([]rune(Message)) == 7 {
+				CharSize = 32
+				Row1Xvalue = 0 * 64
+				Row1Yvalue = 50 * 64
+				Row2Xvalue = 0 * 64
+				Row2Yvalue = 100 * 64
+				Row1Text = Message[0:12]
+				Row2Text = Message[12:21]
 			} else if len([]rune(Message)) == 8 {
 				CharSize = 32
 				Row1Xvalue = 0 * 64
@@ -128,7 +151,7 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 				Row1Text = Message[0:12]
 				Row2Text = Message[12:24]
 			} else {
-				fmt.Fprintln(logfile, Message+" ERROR[ごめんなさい！全角2,3,4,6,8文字以外は対応してません！]")
+				fmt.Fprintln(logfile, Message+" ERROR[ごめんなさい！全角1～8文字以外は対応してません！]")
 				continue
 			}
 
@@ -284,19 +307,6 @@ func handleResult(w http.ResponseWriter, req *http.Request) {
 
 }
 
-func handleSecret(w http.ResponseWriter, r *http.Request) {
-	user, password, _ := r.BasicAuth()
-	HerokuEnvUser := os.Getenv("USER")
-	HerokuEnvPassword := os.Getenv("PASSWORD")
-	if user != HerokuEnvUser || password != HerokuEnvPassword {
-		w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
-		http.Error(w, "認証に失敗しました", http.StatusUnauthorized)
-		return
-	}
-	log.Printf("%s %s", r.Method, r.RequestURI)
-	w.Write([]byte("秘密のページです！"))
-}
-
 func main() {
 	port := os.Getenv("PORT") //実行時に Heroku が指定するポート番号を取得
 	if len(port) == 0 {
@@ -306,7 +316,6 @@ func main() {
 	http.Handle("/tmp/", http.StripPrefix("/tmp/", http.FileServer(http.Dir("tmp/"))))
 	http.HandleFunc("/", handleHome)
 	http.HandleFunc("/result", handleResult)
-	http.HandleFunc("/secret", handleSecret)
 	log.Printf("ポート %s で待ち受けを開始します...", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Printf("サーバーが異常終了しました: %v", err)

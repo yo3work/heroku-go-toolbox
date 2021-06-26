@@ -7,13 +7,13 @@
     <title>カスタム絵文字を一気に作れるサイト</title>
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
     <link rel="stylesheet" href="./static/css/additional.css">
-    <link href="./static/css/result.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/result.css">
   </head>
   <body class="text-center">
-    <div class="container">
-      <h2 class="mt-5 mb-3">カスタム絵文字を作成しました！</h1>
+    <div class="container mt-5">
+      <h3 class="mt-5 mb-3">カスタム絵文字を作成しました</h3>
       <p class="mb-3">画像をクリックするとダウンロードできます</p>
-      <button type="button" class="btn  btn-slack-purple mb-5" onclick="history.back()">入力画面に戻る</button>
+      <button type="button" class="btn  btn-slack-purple mt-5 mb-5" onclick="history.back()">入力画面に戻る</button>
         {{ range .EmojiURL }}
           {{ if eq . "row_start" }}
           <div class="row">
@@ -22,7 +22,7 @@
             </div>
           </div>
           {{ else }}
-          <a href="../{{ . }}" download><img src="../{{ . }}" class="m-2"  width="60" height="60"/></a>
+          <a href="../{{ . }}" download><img src="../{{ . }}" class="m-1"/></a>
           {{ end }}
         {{ end }}
       <p class="mb-5"><small>&copy; <a href='https://github.com/yo3work'>yo3work</a></small></p>

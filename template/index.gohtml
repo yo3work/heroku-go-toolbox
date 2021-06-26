@@ -19,7 +19,7 @@
     <p class="mt-1">
       <small>↑こんな感じのpng画像を一気に作ることができます。</small>
     </p>
-    <p class="mt-3 text-muted">
+    <p class="mt-1 text-muted">
       <button type="button" data-toggle="modal" data-backdrop="true" data-target="#modal-option" class="btn btn-xs btn-link">使い方(How To Use)</button>
     </p>
 
@@ -29,8 +29,12 @@
     <button class="btn btn-lg btn-slack-purple btn-block" type="submit">カスタム絵文字をつくる</button>
 
     <p class="mt-3 text-muted">
+      <small><a href='https://slack.com/intl/ja-jp/help/articles/206870177-%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E3%81%AB%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'>絵文字の追加方法(slack公式)</a></small>
+    </p>
+    <p class="mt-1 text-muted">
       <small>&copy; <a href='https://github.com/yo3work'>yo3work</a></small>
     </p>
+
   </form>
   </main>
   <div class="modal fade" id="modal-option" tabindex="-1" role="dialog" aria-labelledby="myModalOptionLabel">
@@ -41,10 +45,11 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body text-left">
-        <p class="text-muted">■絵文字にしたい文字列を1行ずつ入力してボタンをクリックしてください。6色の画像ファイルが一気に生成されます。</p>
-        <p class="text-muted">■ファイル名は「数字.png」となりますが<br>「よろしく,yoroshiku」とカンマで区切ると、後半の文字列をファイル名にすることができます。</p>
+        <p class="text-muted">■絵文字にしたい文字列を1行ずつ入力してボタンを押してください。6色のpngファイルが一気に生成されます。</p>
+        <p class="text-muted">■ファイル名は入力した文字列と数字で構成されますが<br>「よろしく,yoroshiku」とカンマで区切ると、後半の文字列をファイル名にすることができます。</p>
         <p class="text-muted mt-5">【注意点】</p>
-        <p class="text-muted">■今のところ「全角文字」の「2,3,4,6,8文字」にしか対応してません…。</p>
+        <p class="text-muted">■入力できる文字列は「全角8文字まで」です。4文字から2段構成になります。</p>
+        <p class="text-muted">■全角スペースで文字位置を調整することは可能です(全角スペースも上記の文字数に含まれます)</p>
         <p class="text-muted">■文字色はリスペクトの意味も込めて「どこかで見たことある配色」にしてあります。</p>
         <p class="text-muted">■herokuで運用しているため、herokuが再起動(1日1回)するタイミングで画像リンクが無効になることがあります。</p>
         </div>
