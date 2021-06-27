@@ -18,7 +18,7 @@
     <img class="mb-1" src="./static/img/title_003.png" alt="" width="60" height="60">
     <img class="mb-1" src="./static/img/title_004.png" alt="" width="60" height="60">
     <p class="mt-1">
-      <small>↑こんな感じのpng画像を一気に作ることができます。<br>使い方は<a data-toggle="modal" data-backdrop="true" data-target="#modal-option" href='#'>こちら</a>をクリック</small>
+      <small>↑こんな感じの画像を一気に作れます。<br>使い方は<a data-toggle="modal" data-backdrop="true" data-target="#modal-option" href='#'>こちら</a>をクリック</small>
     </p>
 
     <div class="mt-3 mb-3">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="form-check form-check-inline mb-3">
-      文字列の引き伸ばし
+      文字列の引き伸ばし<a data-toggle="modal" data-backdrop="true" data-target="#modal-option02" class="btn-link" href='#'><i class="fa fa-question-circle"></i></a>
     </div>
     <div class="form-check form-check-inline mb-3">
       <input class="form-check-input" type="radio" name="stretch_flg" id="flexRadioDefault1" value="true" >
@@ -42,14 +42,12 @@
         しない
       </label>
     </div>
-    <div class="form-check form-check-inline mb-3">
-    <a data-toggle="modal" data-backdrop="true" data-target="#modal-option02" class="btn-link" href='#'>  <i class="fa fa-question-circle"></i></a>
-    </div>
 
     <button class="btn btn-lg btn-slack-purple btn-block mb-5" type="submit">カスタム絵文字をつくる</button>
 
     <p class="mt-5 text-muted">
-      <small><a href='https://slack.com/intl/ja-jp/help/articles/206870177-%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E3%81%AB%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'>絵文字の追加方法(slack公式)</a></small>
+      <small><a href='https://slack.com/intl/ja-jp/help/articles/206870177-%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E3%81%AB%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'>絵文字の追加方法(slack公式)</a>　</small>
+      <small><a data-toggle="modal" data-backdrop="true" data-target="#modal-option03" class="btn-link" href='#'>更新履歴</a>　</small>
       <small>&copy; <a href='https://github.com/yo3work'>yo3work</a></small>
     </p>
 
@@ -96,6 +94,28 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="modal-option03" tabindex="-1" role="dialog" aria-labelledby="myModalOptionLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalOptionLabel">更新履歴</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body text-left">
+        <p class="text-muted">2021/06/26 Webに移植しました</p>
+        <p class="text-muted">2021/06/27 レイアウトを調整しました</p>
+        <p class="text-muted">2021/06/27 1,5,7文字にも対応しました</p>
+        <p class="text-muted">2021/06/27 エラーメッセージを表示させるようにしました</p>
+        <p class="text-muted">2021/06/27 文字列の引き伸ばしオプションを実装しました</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- オプション1：jQueryとBootstrapバンドル版（Popperを含む） -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
