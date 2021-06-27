@@ -15,13 +15,15 @@ import (
 	"io/ioutil"
 	"strings"
 
+	"golang.org/x/image/draw"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 	"golang.org/x/image/math/fixed"
 )
 
-func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string) {
+func generateEmoji(EmojiText string, StretchFlg string, DownloadDirectory string) ([]string, string) {
 
+	fmt.Println("StretchFlg is " + StretchFlg)
 	//絵文字のURL格納用スライスの定義
 	var EmojiURL []string
 	//	EmojiURL := []string
@@ -71,26 +73,6 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				OutputFileName = DownloadDirectory + "/" + Message + "_" + strconv.Itoa(cnt) + ".png"
 			}
 
-			// 画像サイズを決める
-			img := image.NewRGBA(image.Rect(0, 0, 128, 128))
-
-			// 画像背景色を決める
-			for y := img.Rect.Min.Y; y < img.Rect.Max.Y; y++ {
-				for x := img.Rect.Min.X; x < img.Rect.Max.X; x++ {
-					img.Set(x, y, color.RGBA{0, 0, 0, 0})
-				}
-			}
-
-			// フォントファイルの読み込みとパース
-			ftBin, err := ioutil.ReadFile("static/fonts/NotoSansCJKjp-Bold.otf")
-			if err != nil {
-				log.Fatalf("failed to load font: %s", err.Error())
-			}
-			ft, err := opentype.Parse(ftBin)
-			if err != nil {
-				log.Fatalf("failed to parse font: %s", err.Error())
-			}
-
 			// 文字数を判定する
 			if len(Message)/len([]rune(Message)) != 3 {
 				errHankakuChar = true
@@ -98,11 +80,15 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				continue
 			}
 
+			// 画像サイズを決める
+			img := image.NewRGBA(image.Rect(0, 0, 128, 128))
+
 			// 文字数による描画設定(フォントサイズ、行数、描画座標)
 			var CharSize float64 = 64
 			CharSize = 64
 			Row1Xvalue, Row1Yvalue, Row2Xvalue, Row2Yvalue := 0, 0, 0, 0
 			Row1Text, Row2Text := "", ""
+
 			if len([]rune(Message)) == 1 {
 				CharSize = 100
 				Row1Xvalue = 15 * 64
@@ -113,11 +99,21 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				Row1Xvalue = 0 * 64
 				Row1Yvalue = 85 * 64
 				Row1Text = Message
+				if StretchFlg == "true" {
+					img = image.NewRGBA(image.Rect(0, 0, 128, 64))
+					Row1Xvalue = 0 * 64
+					Row1Yvalue = 56 * 64
+				}
 			} else if len([]rune(Message)) == 3 {
 				CharSize = 42
 				Row1Xvalue = 0 * 64
 				Row1Yvalue = 75 * 64
 				Row1Text = Message
+				if StretchFlg == "true" {
+					img = image.NewRGBA(image.Rect(0, 0, 128, 42))
+					Row1Xvalue = 0 * 64
+					Row1Yvalue = 37 * 64
+				}
 			} else if len([]rune(Message)) == 4 {
 				CharSize = 64
 				Row1Xvalue = 0 * 64
@@ -134,6 +130,13 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				Row2Yvalue = 105 * 64
 				Row1Text = Message[0:9]
 				Row2Text = Message[9:15]
+				if StretchFlg == "true" {
+					img = image.NewRGBA(image.Rect(0, 0, 128, 84))
+					Row1Xvalue = 0 * 64
+					Row1Yvalue = 36 * 64
+					Row2Xvalue = 0 * 64
+					Row2Yvalue = 78 * 64
+				}
 			} else if len([]rune(Message)) == 6 {
 				CharSize = 42
 				Row1Xvalue = 0 * 64
@@ -142,6 +145,13 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				Row2Yvalue = 105 * 64
 				Row1Text = Message[0:9]
 				Row2Text = Message[9:18]
+				if StretchFlg == "true" {
+					img = image.NewRGBA(image.Rect(0, 0, 128, 84))
+					Row1Xvalue = 0 * 64
+					Row1Yvalue = 36 * 64
+					Row2Xvalue = 0 * 64
+					Row2Yvalue = 78 * 64
+				}
 			} else if len([]rune(Message)) == 7 {
 				CharSize = 32
 				Row1Xvalue = 0 * 64
@@ -150,6 +160,13 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				Row2Yvalue = 100 * 64
 				Row1Text = Message[0:12]
 				Row2Text = Message[12:21]
+				if StretchFlg == "true" {
+					img = image.NewRGBA(image.Rect(0, 0, 128, 64))
+					Row1Xvalue = 0 * 64
+					Row1Yvalue = 28 * 64
+					Row2Xvalue = 0 * 64
+					Row2Yvalue = 60 * 64
+				}
 			} else if len([]rune(Message)) == 8 {
 				CharSize = 32
 				Row1Xvalue = 0 * 64
@@ -158,10 +175,34 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 				Row2Yvalue = 100 * 64
 				Row1Text = Message[0:12]
 				Row2Text = Message[12:24]
+				if StretchFlg == "true" {
+					img = image.NewRGBA(image.Rect(0, 0, 128, 64))
+					Row1Xvalue = 0 * 64
+					Row1Yvalue = 28 * 64
+					Row2Xvalue = 0 * 64
+					Row2Yvalue = 60 * 64
+				}
 			} else {
 				errWordCount = true
 				fmt.Fprintln(logfile, Message+" ERROR[ごめんなさい！全角1～8文字以外は対応してません！]")
 				continue
+			}
+
+			// 画像背景色を決める
+			for y := img.Rect.Min.Y; y < img.Rect.Max.Y; y++ {
+				for x := img.Rect.Min.X; x < img.Rect.Max.X; x++ {
+					img.Set(x, y, color.RGBA{0, 0, 0, 0})
+				}
+			}
+
+			// フォントファイルの読み込みとパース
+			ftBin, err := ioutil.ReadFile("static/fonts/NotoSansCJKjp-Bold.otf")
+			if err != nil {
+				log.Fatalf("failed to load font: %s", err.Error())
+			}
+			ft, err := opentype.Parse(ftBin)
+			if err != nil {
+				log.Fatalf("failed to parse font: %s", err.Error())
 			}
 
 			// 文字色の候補
@@ -210,11 +251,21 @@ func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string
 			if err != nil {
 				panic(err.Error())
 			}
+
 			defer file.Close()
 			fmt.Fprintln(logfile, Message+" "+OutputFileName)
 
-			if err := png.Encode(file, img); err != nil {
-				panic(err.Error())
+			// 画像引き伸ばし
+			if StretchFlg == "true" {
+				dst := image.NewRGBA(image.Rect(0, 0, 128, 128))
+				draw.CatmullRom.Scale(dst, dst.Bounds(), img, img.Bounds(), draw.Over, nil)
+				if err := png.Encode(file, dst); err != nil {
+					panic(err.Error())
+				}
+			} else {
+				if err := png.Encode(file, img); err != nil {
+					panic(err.Error())
+				}
 			}
 
 			//ファイル名をスライスに追加
@@ -274,9 +325,11 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 func handleResult(w http.ResponseWriter, req *http.Request) {
 
 	EmojiText := req.FormValue("emoji_text")
+	StretchFlg := req.FormValue("stretch_flg")
 	EmojiTextColor := req.FormValue("emoji_text_color")
 
 	fmt.Println(EmojiText)
+	fmt.Println(StretchFlg)
 	fmt.Println(EmojiTextColor)
 
 	// 現在時刻でディレクトリを作成
@@ -287,7 +340,7 @@ func handleResult(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// 絵文字作成関数を実行して、戻り値としてURLを含むスライスを受け取る
-	EmojiURL, ErrText := generateEmoji(EmojiText, DownloadDirectory)
+	EmojiURL, ErrText := generateEmoji(EmojiText, StretchFlg, DownloadDirectory)
 
 	// downloadディレクトリ内を確認
 	files, _ := os.ReadDir("./tmp/download")

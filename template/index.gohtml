@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./static/css/bootstrap.min.css">
     <link rel="stylesheet" href="./static/css/additional.css">
     <link href="./static/css/signin.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
   <body class="text-center">
   <main class="form-signin">
@@ -17,10 +18,7 @@
     <img class="mb-1" src="./static/img/title_003.png" alt="" width="60" height="60">
     <img class="mb-1" src="./static/img/title_004.png" alt="" width="60" height="60">
     <p class="mt-1">
-      <small>↑こんな感じのpng画像を一気に作ることができます。</small>
-    </p>
-    <p class="mt-1 text-muted">
-      <button type="button" data-toggle="modal" data-backdrop="true" data-target="#modal-option" class="btn btn-xs btn-link">使い方(How To Use)</button>
+      <small>↑こんな感じのpng画像を一気に作ることができます。<br>使い方は<a data-toggle="modal" data-backdrop="true" data-target="#modal-option" href='#'>こちら</a>をクリック</small>
     </p>
 
     <div class="mt-3 mb-3">
@@ -28,17 +26,36 @@
 明日やる
 今週中にやる</textarea>
     </div>
-    <button class="btn btn-lg btn-slack-purple btn-block" type="submit">カスタム絵文字をつくる</button>
 
-    <p class="mt-3 text-muted">
+    <div class="form-check form-check-inline mb-3">
+      文字列の引き伸ばし
+    </div>
+    <div class="form-check form-check-inline mb-3">
+      <input class="form-check-input" type="radio" name="stretch_flg" id="flexRadioDefault1" value="true" >
+      <label class="form-check-label" for="flexRadioDefault1">
+        する
+      </label>
+    </div>
+    <div class="form-check form-check-inline mb-3">
+      <input class="form-check-input" type="radio" name="stretch_flg" id="flexRadioDefault2" value="false" checked>
+      <label class="form-check-label" for="flexRadioDefault2">
+        しない
+      </label>
+    </div>
+    <div class="form-check form-check-inline mb-3">
+    <a data-toggle="modal" data-backdrop="true" data-target="#modal-option02" class="btn-link" href='#'>  <i class="fa fa-question-circle"></i></a>
+    </div>
+
+    <button class="btn btn-lg btn-slack-purple btn-block mb-5" type="submit">カスタム絵文字をつくる</button>
+
+    <p class="mt-5 text-muted">
       <small><a href='https://slack.com/intl/ja-jp/help/articles/206870177-%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E3%81%AB%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%A0%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%92%E8%BF%BD%E5%8A%A0%E3%81%99%E3%82%8B'>絵文字の追加方法(slack公式)</a></small>
-    </p>
-    <p class="mt-1 text-muted">
       <small>&copy; <a href='https://github.com/yo3work'>yo3work</a></small>
     </p>
 
   </form>
   </main>
+
   <div class="modal fade" id="modal-option" tabindex="-1" role="dialog" aria-labelledby="myModalOptionLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -61,6 +78,25 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="modal-option02" tabindex="-1" role="dialog" aria-labelledby="myModalOptionLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalOptionLabel">文字列の引き伸ばし</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body text-left">
+        <p class="text-muted">■「する」にチェックを入れると、slackでの視認性をあげるために、文字列を縦方向に引き伸ばします。</p>
+        <p class="text-muted">■ただし、文字列が1文字もしくは4文字の場合は、もともと余白が少ないため、引き伸ばしは行われません。</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- オプション1：jQueryとBootstrapバンドル版（Popperを含む） -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
