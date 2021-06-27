@@ -20,7 +20,7 @@ import (
 	"golang.org/x/image/math/fixed"
 )
 
-func generateEmoji(EmojiText string, DownloadDirectory string) []string {
+func generateEmoji(EmojiText string, DownloadDirectory string) ([]string, string) {
 
 	//絵文字のURL格納用スライスの定義
 	var EmojiURL []string
@@ -44,10 +44,17 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 
 	cnt := 1
 	filenameCount := 1
+
+	errText := ""
+	errBlankRow := false
+	errHankakuChar := false
+	errWordCount := false
+
 	// テキストファイルを行ごとに読み込んでループ
 	for _, str := range s {
 		Message := str
 		if Message == "" {
+			errBlankRow = true
 			continue
 		}
 
@@ -86,6 +93,7 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 
 			// 文字数を判定する
 			if len(Message)/len([]rune(Message)) != 3 {
+				errHankakuChar = true
 				fmt.Fprintln(logfile, Message+" ERROR[ごめんなさい！全角文字を使ってね！]")
 				continue
 			}
@@ -151,6 +159,7 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 				Row1Text = Message[0:12]
 				Row2Text = Message[12:24]
 			} else {
+				errWordCount = true
 				fmt.Fprintln(logfile, Message+" ERROR[ごめんなさい！全角1～8文字以外は対応してません！]")
 				continue
 			}
@@ -225,11 +234,22 @@ func generateEmoji(EmojiText string, DownloadDirectory string) []string {
 
 		}
 	}
+
+	if errBlankRow {
+		errText += "「何も入力されていない行」"
+	}
+	if errHankakuChar {
+		errText += "「半角文字を含む行」"
+	}
+	if errWordCount {
+		errText += "「9文字以上入力されている行」"
+	}
+
 	//    if s.Err() != nil {
 	//        // non-EOF error.
 	//        log.Fatal(s.Err())
 	//    }
-	return EmojiURL
+	return EmojiURL, errText
 }
 
 func handleHome(w http.ResponseWriter, r *http.Request) {
@@ -267,7 +287,7 @@ func handleResult(w http.ResponseWriter, req *http.Request) {
 	}
 
 	// 絵文字作成関数を実行して、戻り値としてURLを含むスライスを受け取る
-	EmojiURL := generateEmoji(EmojiText, DownloadDirectory)
+	EmojiURL, ErrText := generateEmoji(EmojiText, DownloadDirectory)
 
 	// downloadディレクトリ内を確認
 	files, _ := os.ReadDir("./tmp/download")
@@ -296,10 +316,12 @@ func handleResult(w http.ResponseWriter, req *http.Request) {
 		EmojiText      string
 		EmojiTextColor string
 		EmojiURL       []string
+		ErrText        string
 	}{
 		EmojiText,
 		EmojiTextColor,
 		EmojiURL,
+		ErrText,
 	}); err != nil {
 		log.Printf("テンプレート %s の実行に失敗！: %v", t.Name(), err)
 		http.Error(w, "内部エラーです", http.StatusInternalServerError)
